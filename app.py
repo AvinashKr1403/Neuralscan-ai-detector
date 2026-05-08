@@ -406,18 +406,9 @@ class NaiveBayesDetector:
 MODEL_PATH = 'model.pkl'
 
 def load_or_train():
-    if os.path.exists(MODEL_PATH):
-        try:
-            with open(MODEL_PATH, 'rb') as f:
-                return pickle.load(f)
-        except Exception:
-            pass
     det = SklearnDetector() if SKLEARN_AVAILABLE else NaiveBayesDetector()
     det.train(DATASET)
-    with open(MODEL_PATH, 'wb') as f:
-        pickle.dump(det, f)
     return det
-
 detector = load_or_train()
 
 def get_cv_accuracy():
